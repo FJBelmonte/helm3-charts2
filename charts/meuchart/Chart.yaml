@@ -1,4 +1,3 @@
-appid:
 apiVersion: v2
 name: meuchart
 description: A Helm chart for Kubernetes
