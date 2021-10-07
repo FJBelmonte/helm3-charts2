@@ -1,31 +1,41 @@
 replicaCount: 1
 
 image:
-    repository: theiaide/theia
-    pullPolicy: IfNotPresent
-    tag: "1.0.0"
+  repository: theiaide/theia
+  pullPolicy: IfNotPresent
+  tag: "1.0.0"
 
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
+configMap:
+  enabled: true
+  name: script
+  data: 
+    listar.sh: |-
+      #!/bin/bash
+      ls -ltra
+      echo "acabei de listar"
+
+
 serviceAccount:
-    create: true
-    annotations: {}
-    name: ""
+  create: true
+  annotations: {}
+  name: ""
 
 podAnnotations: {}
 
 podSecurityContext: {}
 
-securityContext: 
-    runAsUser: 1001
-    fsGroup: 1001
+securityContext:
+  runAsUser: 1001
+  fsGroup: 1001
+
 
 service:
-    type: ClusterIP
-    port: 80
-    targetPort: 3000
+  type: ClusterIP
+  port: 80
 
 ingress:
     enabled: false
@@ -41,10 +51,10 @@ ingress:
 resources: {}
 
 autoscaling:
-    enabled: false
-    minReplicas: 1
-    maxReplicas: 100
-    targetCPUUtilizationPercentage: 80
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
 
 nodeSelector: {}
 
@@ -52,14 +62,13 @@ tolerations: []
 
 affinity: {}
 
-configMap:
-    kind: ConfigMap
-    namespace: fernandonamespace
-    enabled: true
-    data:
-        param1: 1
-        param2: 2
+volumes:
+- name: theia
+  configMap:
+    defaultMode: 0777
+    name: theia
+    optional: false
 
-deployment:
-    namespace: fernandonamespace
-
+volumeMounts:
+- mountPath: /home/project
+  name: volume-theia
