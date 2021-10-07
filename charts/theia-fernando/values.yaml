@@ -81,7 +81,20 @@ volumes:
     defaultMode: 0777
     name: theia-fernando
     optional: false
+- name: volume-fernando
+  persistentVolumeClaim:
+    claimName: volume-fernando
 
 volumeMounts:
 - mountPath: /home/project
   name: theia-fernando
+- mountPath: /home/project/scripts
+  name: volume-fernando
+
+
+persistence: 
+  enabled: true
+  size: 1Gi
+  storageClass: longhorn
+
+
