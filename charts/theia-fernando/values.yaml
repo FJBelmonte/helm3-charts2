@@ -1,43 +1,41 @@
 replicaCount: 1
 
 image:
-  repository: theiaide/theia
-  pullPolicy: IfNotPresent
-  tag: "1.0.0"
+    repository: theiaide/theia
+    pullPolicy: IfNotPresent
+    tag: "1.0.0"
 
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
 configMap:
-  enabled: true
-  name: script
-  data: 
-    listar.sh: |-
-      #!/bin/bash
-      ls -ltra
-      echo "acabei de listar"
-
+    enabled: true
+    name: script
+    data:
+        listar.sh: |-
+            #!/bin/bash
+            ls -ltra
+            echo "acabei de listar"
 
 serviceAccount:
-  create: true
-  annotations: {}
-  name: ""
+    create: true
+    annotations: {}
+    name: ""
 
 podAnnotations: {}
 
 podSecurityContext: {}
 
 securityContext:
-  runAsUser: 1001
+    runAsUser: 1001
 #  fsGroup: 1001
 
-
 service:
-  name: http
-  type: ClusterIP
-  port: 80
-  targetPort: 3000
+    name: http
+    type: ClusterIP
+    port: 80
+    targetPort: 3000
 
 ingress:
     enabled: false
@@ -53,10 +51,10 @@ ingress:
 resources: {}
 
 autoscaling:
-  enabled: false
-  minReplicas: 1
-  maxReplicas: 100
-  targetCPUUtilizationPercentage: 80
+    enabled: false
+    minReplicas: 1
+    maxReplicas: 100
+    targetCPUUtilizationPercentage: 80
 
 nodeSelector: {}
 
@@ -65,36 +63,32 @@ tolerations: []
 affinity: {}
 
 livenessProbe:
-  httpGet:
-    path: /
-    port: http
+    httpGet:
+        path: /
+        port: http
 
 readinessProbe:
-  httpGet:
-    path: /
-    port: http
-
+    httpGet:
+        path: /
+        port: http
 
 volumes:
-- name: theia-fernando
-  configMap:
-    defaultMode: 0777
-    name: theia-fernando
-    optional: false
-- name: volume-fernando
-  persistentVolumeClaim:
-    claimName: volume-fernando
+    - name: theia-fernando
+      configMap:
+          defaultMode: 0777
+          name: theia-fernando
+          optional: false
+    - name: volume-fernando
+      persistentVolumeClaim:
+          claimName: volume-fernando
 
 volumeMounts:
-- mountPath: /home/project
-  name: theia-fernando
-- mountPath: /home/project/scripts
-  name: volume-fernando
+    - mountPath: /home/project
+      name: volume-fernando
+    - mountPath: /home/project/scripts
+      name: theia-fernando
 
-
-persistence: 
-  enabled: true
-  size: 1Gi
-  storageClass: longhorn
-
-
+persistence:
+    enabled: true
+    size: 1Gi
+    storageClass: longhorn
