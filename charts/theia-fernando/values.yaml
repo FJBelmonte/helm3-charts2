@@ -62,13 +62,24 @@ tolerations: []
 
 affinity: {}
 
+livenessProbe:
+  httpGet:
+    path: /
+    port: http
+
+readinessProbe:
+  httpGet:
+    path: /
+    port: http
+
+
 volumes:
-- name: theia
+- name: theia-volume
   configMap:
     defaultMode: 0777
-    name: theia
+    name: theia-volume
     optional: false
 
 volumeMounts:
 - mountPath: /home/project
-  name: volume-theia
+  name: theia-volume
