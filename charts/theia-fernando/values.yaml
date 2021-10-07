@@ -74,12 +74,12 @@ readinessProbe:
 
 
 volumes:
-- name: theia-volume
+- name: theia-fernando
   configMap:
     defaultMode: 0777
-    name: theia-volume
+    name: theia-fernando
     optional: false
 
 volumeMounts:
 - mountPath: /home/project
-  name: theia-volume
+  name: theia-fernando
