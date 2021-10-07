@@ -15,7 +15,8 @@ spec:
     metadata:
       annotations:
       {{- with .Values.podAnnotations }}
-        {{- toYaml . | nindent 8 }}
+      {{- toYaml . | nindent 8 }}
+        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
       {{- end }}
       labels:
         {{- include "theia-fernando.selectorLabels" . | nindent 8 }}
