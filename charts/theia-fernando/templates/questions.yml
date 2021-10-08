@@ -1,3 +1,4 @@
+- Application
 questions:
     - variable: ingress.enabled
       label: "Ingress"
