@@ -1,0 +1,8 @@
+questions:
+    - variable: ingress.enabled
+      label: "Ingress"
+      description: "Ingress Descrição"
+      default: false
+      type: boolean
+      required: true
+      group: "Meu grupo"
